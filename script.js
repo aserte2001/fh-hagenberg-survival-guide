@@ -3,17 +3,17 @@ const questions = [
   {
     question: "Wann beginnt das Wintersemester an der FH Hagenberg?",
     options: ["1. September", "1. Oktober", "15. September", "1. August"],
-    answer: 1
+    answer: 1 // Index 1 = "1. Oktober"
   },
   {
     question: "Welche Programmiersprache ist Pflicht im 1. Semester?",
     options: ["Python", "Java", "C++", "JavaScript"],
-    answer: 1
+    answer: 1 // Java
   },
   {
     question: "Wo findest du die Mensa?",
     options: ["Gebäude A", "Gebäude B", "Gebäude C", "Im Park"],
-    answer: 1
+    answer: 1 // Gebäude B
   }
 ];
 
@@ -28,7 +28,7 @@ const scoreEl = document.getElementById('score');
 // Navigation: Zeige Quiz
 document.querySelector('a[href="#quiz"]').addEventListener('click', (e) => {
   e.preventDefault();
-  document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
+  hideAllSections();
   document.getElementById('quiz').classList.remove('d-none');
   startQuiz();
 });
@@ -53,6 +53,8 @@ function showQuestion() {
     btn.onclick = () => selectAnswer(i);
     optionsEl.appendChild(btn);
   });
+
+  nextBtn.style.display = 'none'; // Verstecke bis Antwort gegeben
 }
 
 function selectAnswer(selected) {
@@ -62,22 +64,26 @@ function selectAnswer(selected) {
     scoreEl.textContent = score;
     alert("Richtig! 🚀");
   } else {
-    alert("Leider falsch 😅 Richtig wäre: " + questions[currentQuestion].options[correct]);
+    alert(`Falsch 😅\nRichtig: ${questions[currentQuestion].options[correct]}`);
   }
 
   currentQuestion++;
   if (currentQuestion < questions.length) {
-    setTimeout(showQuestion, 500);
+    setTimeout(showQuestion, 600);
   } else {
     setTimeout(() => {
-      alert(`Quiz beendet! Dein Score: ${score}/${questions.length} 🎉`);
+      alert(`Quiz beendet! 🎉\nDein Score: ${score}/${questions.length}`);
+      hideAllSections();
       document.getElementById('home').classList.remove('d-none');
-      document.getElement:getElementById('quiz').classList.add('d-none');
-    }, 500);
+    }, 600);
   }
 }
 
-// Nächste Frage Button
+function hideAllSections() {
+  document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
+}
+
+// Nächste-Frage-Button (falls man manuell will)
 nextBtn.onclick = () => {
   if (currentQuestion < questions.length) {
     showQuestion();
