@@ -25,6 +25,7 @@
           <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
         </ul>
+        <li class="nav-item"><a class="nav-link" href="#map">Map</a></li>
       </div>
     </div>
   </nav>
@@ -42,8 +43,27 @@
       <p class="mt-3 text-center">Punkte: <strong id="score">0</strong></p>
     </div>
   </section>
+  <!-- CAMPUS MAP -->
+<section id="map" class="container my-5 d-none">
+  <h2 class="text-center mb-4" style="color: #005fa8;">Campus Map</h2>
+  <div class="position-relative">
+    <img src="campus-map.jpg" class="img-fluid rounded shadow" alt="FH Hagenberg Campus" style="max-width: 100%; height: auto;">
+    
+    <!-- Anklickbare Punkte -->
+    <div class="map-point" style="position: absolute; top: 45%; left: 35%; width: 30px; height: 30px; background: red; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);" 
+         onclick="alert('📍 Mensa: Hier gibt’s Schnitzel!')"></div>
+    
+    <div class="map-point" style="position: absolute; top: 30%; left: 60%; width: 30px; height: 30px; background: blue; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"
+         onclick="alert('📚 Bibliothek: 24/7 geöffnet (im Traum)')"></div>
+    
+    <div class="map-point" style="position: absolute; top: 65%; left: 50%; width: 30px; height: 30px; background: green; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);"
+         onclick="alert('🎤 Audimax: Hier sind die coolen Vorträge')"></div>
+  </div>
+  <p class="text-center mt-3 text-muted">Klick auf die Punkte!</p>
+</section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
