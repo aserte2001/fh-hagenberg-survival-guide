@@ -84,3 +84,39 @@ function selectAnswer(selected) {
     }, 1000);
   }
 }
+// === HIGHSCORE SPEICHERN ===
+function saveHighscore() {
+  const highscore = localStorage.getItem('fhHighscore') || 0;
+  if (score > highscore) {
+    localStorage.setItem('fhHighscore', score);
+    alert(`Neuer Highscore! 🎉 ${score}/${questions.length}`);
+  }
+}
+
+function showHighscore() {
+  const highscore = localStorage.getItem('fhHighscore') || 0;
+  const hsEl = document.createElement('p');
+  hsEl.className = 'text-center mt-3 text-muted';
+  hsEl.innerHTML = `<strong>Bester Score:</strong> ${highscore}/${questions.length}`;
+  document.querySelector('#quiz .bg-white').appendChild(hsEl);
+}
+
+// Am Ende des Quiz: Highscore speichern & zeigen
+// Ersetze das letzte alert mit:
+setTimeout(() => {
+  saveHighscore();
+  alert(`Quiz fertig! 🎉 Score: ${score}/${questions.length}`);
+  hideAllSections();
+  document.getElementById('home').classList.remove('d-none');
+  // Highscore auf Home anzeigen
+  setTimeout(() => {
+    const home = document.getElementById('home');
+    if (!home.querySelector('.highscore')) {
+      const hs = document.createElement('p');
+      hs.className = 'highscore text-center text-primary mt-3';
+      hs.innerHTML = `Bester Score: <strong>${localStorage.getItem('fhHighscore') || 0}</strong>/${questions.length}`;
+      home.appendChild(hs);
+    }
+  }, 500);
+}, 1000);
+
