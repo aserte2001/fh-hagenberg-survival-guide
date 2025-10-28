@@ -40,6 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(startQuiz, 100);
     });
   }
+  const mapLink = document.querySelector('a[href="#map"]');
+if (mapLink) {
+  mapLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    hideAllSections();
+    document.getElementById('map').classList.remove('d-none');
+  });
+}
 });
 
 function startQuiz() {
@@ -123,5 +131,6 @@ setTimeout(() => {
     }
   }, 500);
 }, 1000);
+
 
 
