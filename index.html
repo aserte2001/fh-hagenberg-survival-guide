@@ -82,28 +82,29 @@
   </section>
 
   <!-- CAMPUS MAP -->
-  <section id="map" class="container my-5 d-none">
-    <h2 class="text-center mb-4" style="color: #005fa8;">Campus Map</h2>
-    <div class="text-center position-relative d-inline-block">
-      <img src="campus-map.jpg" alt="FH Hagenberg Campus" class="img-fluid rounded shadow" style="max-width: 100%;">
+<section id="map" class="container my-5 d-none">
+  <h2 class="text-center mb-4" style="color: #005fa8;">Campus Map</h2>
+  <div class="text-center position-relative d-inline-block">
+    <img src="campus-map.jpg" alt="FH Hagenberg Campus" class="img-fluid rounded shadow" style="max-width: 100%;">
 
-      <!-- Mensa (rot) -->
-      <div class="map-point" style="position: absolute; top: 48%; left: 38%; width: 28px; height: 28px; background: #d32f2f; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.6);"
-           onclick="alert('Mensa: Montags Schnitzel-Tag!')"></div>
+    <!-- Mensa (Rot) -->
+    <div class="map-point" style="position: absolute; top: 48%; left: 38%; width: 28px; height: 28px; background: #d32f2f; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.6); transition: transform 0.2s;"
+         onclick="alert('Mensa: Montags Schnitzel-Tag!')"></div>
 
-      <!-- Bibliothek (blau) -->
-      <div class="map-point" style="position: absolute; top: 32%; left: 62%; width: 28px; height: 28px; background: #1976d2; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.6);"
-           onclick="alert('Bibliothek: 24/7 Lernzone')"></div>
+    <!-- Bibliothek (Blau) -->
+    <div class="map-point" style="position: absolute; top: 32%; left: 62%; width: 28px; height: 28px; background: #1976d2; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.6); transition: transform 0.2s;"
+         onclick="alert('Bibliothek: 24/7 Lernzone')"></div>
 
-      <!-- Audimax (grün) -->
-      <div class="map-point" style="position: absolute; top: 68%; left: 52%; width: 28px; height: 28px; background: #388e3c; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.6);"
-           onclick="alert('Audimax: Vorträge & Events')"></div>
-    </div>
-    <p class="text-center mt-3 text-muted">Klick auf die Punkte!</p>
-  </section>
+    <!-- Audimax (Grün) -->
+    <div class="map-point" style="position: absolute; top: 68%; left: 52%; width: 28px; height: 28px; background: #388e3c; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.6); transition: transform 0.2s;"
+         onclick="alert('Audimax: Vorträge & Events')"></div>
+  </div>
+  <p class="text-center mt-3 text-muted">Klick auf die Punkte!</p>
+</section>
 
   <!-- Bootstrap JS + Dein Script -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
