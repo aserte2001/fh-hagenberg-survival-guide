@@ -1,20 +1,20 @@
+// === FH HAGENBERG SURVIVAL GUIDE – QUIZ LOGIK ===
 
-// Quiz Daten
 const questions = [
   {
     question: "Wann beginnt das Wintersemester an der FH Hagenberg?",
     options: ["1. September", "1. Oktober", "15. September", "1. August"],
-    answer: 1 // Index 1 = "1. Oktober"
+    answer: 1
   },
   {
-    question: "Welche Programmiersprache ist Pflicht im 1. Semester?",
+    question: "Welche Programmiersprache ist Pflicht im 1. Semester Software Engineering?",
     options: ["Python", "Java", "C++", "JavaScript"],
-    answer: 1 // Java
+    answer: 1
   },
   {
-    question: "Wo findest du die Mensa?",
+    question: "In welchem Gebäude ist die Mensa?",
     options: ["Gebäude A", "Gebäude B", "Gebäude C", "Im Park"],
-    answer: 1 // Gebäude B
+    answer: 1
   }
 ];
 
@@ -26,15 +26,22 @@ const optionsEl = document.getElementById('options');
 const nextBtn = document.getElementById('next-btn');
 const scoreEl = document.getElementById('score');
 
-// Navigation: Zeige Quiz
-document.querySelector('a[href="#quiz"]').addEventListener('click', (e) => {
-  e.preventDefault();
-  hideAllSections();
-  document.getElementById('quiz').classList.remove('d-none');
-  startQuiz();
+function hideAllSections() {
+  document.querySelectorAll('section, main').forEach(s => s.classList.add('d-none'));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const quizLink = document.querySelector('a[href="#quiz"]');
+  if (quizLink) {
+    quizLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      hideAllSections();
+      document.getElementById('quiz').classList.remove('d-none');
+      setTimeout(startQuiz, 100);
+    });
+  }
 });
 
-// Starte Quiz
 function startQuiz() {
   currentQuestion = 0;
   score = 0;
@@ -54,8 +61,6 @@ function showQuestion() {
     btn.onclick = () => selectAnswer(i);
     optionsEl.appendChild(btn);
   });
-
-  nextBtn.style.display = 'none'; // Verstecke bis Antwort gegeben
 }
 
 function selectAnswer(selected) {
@@ -65,28 +70,17 @@ function selectAnswer(selected) {
     scoreEl.textContent = score;
     alert("Richtig! 🚀");
   } else {
-    alert(`Falsch 😅\nRichtig: ${questions[currentQuestion].options[correct]}`);
+    alert(`Falsch 😅 Richtig: ${questions[currentQuestion].options[correct]}`);
   }
 
   currentQuestion++;
   if (currentQuestion < questions.length) {
-    setTimeout(showQuestion, 600);
+    setTimeout(showQuestion, 1000);
   } else {
     setTimeout(() => {
-      alert(`Quiz beendet! 🎉\nDein Score: ${score}/${questions.length}`);
+      alert(`Quiz fertig! 🎉 Score: ${score}/${questions.length}`);
       hideAllSections();
       document.getElementById('home').classList.remove('d-none');
-    }, 600);
+    }, 1000);
   }
 }
-
-function hideAllSections() {
-  document.querySelectorAll('section').forEach(s => s.classList.add('d-none'));
-}
-
-// Nächste-Frage-Button (falls man manuell will)
-nextBtn.onclick = () => {
-  if (currentQuestion < questions.length) {
-    showQuestion();
-  }
-};
