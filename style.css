@@ -1,0 +1,52 @@
+/* FH Hagenberg Farben */
+:root {
+  --fh-blue: #005fa8;
+  --fh-light: #f8f9fa;
+}
+
+/* Grundlayout */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--fh-light);
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation */
+.navbar {
+  background-color: var(--fh-blue) !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Hauptinhalt */
+main {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.display-5 {
+  color: var(--fh-blue);
+  font-weight: 600;
+}
+
+.lead {
+  color: #444;
+  font-size: 1.2rem;
+}
+
+/* Footer (später) */
+footer {
+  background: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 3px solid var(--fh-blue);
+}
