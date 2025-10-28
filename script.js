@@ -1,5 +1,6 @@
-// === FH HAGENBERG SURVIVAL GUIDE – QUIZ LOGIK ===
+// === FH HAGENBERG SURVIVAL GUIDE – QUIZ & MAP LOGIK ===
 
+// --- QUIZ FRAGEN ---
 const questions = [
   {
     question: "Wann beginnt das Wintersemester an der FH Hagenberg?",
@@ -18,49 +19,61 @@ const questions = [
   }
 ];
 
+// --- VARIABLEN ---
 let currentQuestion = 0;
 let score = 0;
 
 const questionEl = document.getElementById('question');
 const optionsEl = document.getElementById('options');
-const nextBtn = document.getElementById('next-btn');
 const scoreEl = document.getElementById('score');
 
+// --- HILFSFUNKTION: Alle Sektionen verstecken ---
 function hideAllSections() {
   document.querySelectorAll('section, main').forEach(s => s.classList.add('d-none'));
 }
 
+// --- NAVIGATION: DOM GELADEN ---
 document.addEventListener('DOMContentLoaded', () => {
+  // Quiz öffnen
   const quizLink = document.querySelector('a[href="#quiz"]');
   if (quizLink) {
     quizLink.addEventListener('click', (e) => {
       e.preventDefault();
       hideAllSections();
       document.getElementById('quiz').classList.remove('d-none');
-      setTimeout(startQuiz, 100);
+      startQuiz();
     });
   }
+
+  // Map öffnen
   const mapLink = document.querySelector('a[href="#map"]');
-if (mapLink) {
-  mapLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    hideAllSections();
-    document.getElementById('map').classList.remove('d-none');
-  });
-}
+  if (mapLink) {
+    mapLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      hideAllSections();
+      document.getElementById('map').classList.remove('d-none');
+    });
+  }
 });
 
+// --- QUIZ STARTEN ---
 function startQuiz() {
   currentQuestion = 0;
   score = 0;
   scoreEl.textContent = score;
 
-  // ← HIER AUFRUFEN!
-  showHighscore();   // ← Zeigt Highscore an, bevor Quiz startet
+  // Alten Highscore-Text im Quiz entfernen
+  const oldHs = document.querySelector('#quiz .highscore-text');
+  if (oldHs) oldHs.remove();
 
+  // Highscore im Quiz anzeigen
+  showHighscore();
+
+  // Erste Frage
   showQuestion();
 }
 
+// --- FRAGE ANZEIGEN ---
 function showQuestion() {
   const q = questions[currentQuestion];
   questionEl.textContent = q.question;
@@ -75,62 +88,68 @@ function showQuestion() {
   });
 }
 
+// --- ANTWORT PRÜFEN ---
 function selectAnswer(selected) {
   const correct = questions[currentQuestion].answer;
+
   if (selected === correct) {
     score++;
     scoreEl.textContent = score;
-    alert("Richtig! 🚀");
+    alert("Richtig!");
   } else {
-    alert(`Falsch 😅 Richtig: ${questions[currentQuestion].options[correct]}`);
+    alert(`Falsch\nRichtig wäre: ${questions[currentQuestion].options[correct]}`);
   }
 
   currentQuestion++;
+
   if (currentQuestion < questions.length) {
     setTimeout(showQuestion, 1000);
   } else {
-    setTimeout(() => {
-      alert(`Quiz fertig! 🎉 Score: ${score}/${questions.length}`);
-      hideAllSections();
-      document.getElementById('home').classList.remove('d-none');
-    }, 1000);
-  }
-}
-// === HIGHSCORE SPEICHERN ===
-function saveHighscore() {
-  const highscore = localStorage.getItem('fhHighscore') || 0;
-  if (score > highscore) {
-    localStorage.setItem('fhHighscore', score);
-    alert(`Neuer Highscore! 🎉 ${score}/${questions.length}`);
+    setTimeout(finishQuiz, 1000);
   }
 }
 
-function showHighscore() {
-  const highscore = localStorage.getItem('fhHighscore') || 0;
-  const hsEl = document.createElement('p');
-  hsEl.className = 'text-center mt-3 text-muted';
-  hsEl.innerHTML = `<strong>Bester Score:</strong> ${highscore}/${questions.length}`;
-  document.querySelector('#quiz .bg-white').appendChild(hsEl);
-}
-
-// Am Ende des Quiz: Highscore speichern & zeigen
-// Ersetze das letzte alert mit:
-setTimeout(() => {
+// --- QUIZ BEENDEN ---
+function finishQuiz() {
+  // HIGHSCORE SPEICHERN (WICHTIG!)
   saveHighscore();
-  alert(`Quiz fertig! 🎉 Score: ${score}/${questions.length}`);
+
+  alert(`Quiz beendet!\nDein Score: ${score}/${questions.length}`);
+
+  // Zurück zu Home
   hideAllSections();
   document.getElementById('home').classList.remove('d-none');
-  // Highscore auf Home anzeigen
-  setTimeout(() => {
-    const home = document.getElementById('home');
-    if (!home.querySelector('.highscore')) {
-      const hs = document.createElement('p');
-      hs.className = 'highscore text-center text-primary mt-3';
-      hs.innerHTML = `Bester Score: <strong>${localStorage.getItem('fhHighscore') || 0}</strong>/${questions.length}`;
-      home.appendChild(hs);
-    }
-  }, 500);
-}, 1000);
 
+  // Highscore auf Home aktualisieren
+  updateHomeHighscore();
+}
 
+// --- HIGHSCORE SPEICHERN ---
+function saveHighscore() {
+  const saved = localStorage.getItem('fhHighscore') || 0;
+  if (score > saved) {
+    localStorage.setItem('fhHighscore', score);
+  }
+}
 
+// --- HIGHSCORE IM QUIZ ANZEIGEN ---
+function showHighscore() {
+  const highscore = localStorage.getItem('fhHighscore') || 0;
+  const hsText = document.createElement('p');
+  hsText.className = 'highscore-text text-center mt-3 text-muted';
+  hsText.innerHTML = `<strong>Bester Score:</strong> ${highscore}/${questions.length}`;
+  document.querySelector('#quiz .bg-white').appendChild(hsText);
+}
+
+// --- HIGHSCORE AUF HOME ANZEIGEN ---
+function updateHomeHighscore() {
+  const home = document.getElementById('home');
+  let hsEl = home.querySelector('.home-highscore');
+  if (!hsEl) {
+    hsEl = document.createElement('p');
+    hsEl.className = 'home-highscore text-center text-primary mt-4 fw-bold';
+    home.appendChild(hsEl);
+  }
+  const highscore = localStorage.getItem('fhHighscore') || 0;
+  hsEl.innerHTML = `Bester Score bisher: <strong>${highscore}</strong> von ${questions.length}`;
+}
