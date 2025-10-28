@@ -62,14 +62,12 @@ function startQuiz() {
   score = 0;
   scoreEl.textContent = score;
 
-  // Alten Highscore-Text im Quiz entfernen
-  const oldHs = document.querySelector('#quiz .highscore-text');
+  // Nur 1x Highscore anzeigen
+  const quizContainer = document.querySelector('#quiz .bg-white');
+  const oldHs = quizContainer.querySelector('.highscore-text');
   if (oldHs) oldHs.remove();
 
-  // Highscore im Quiz anzeigen
   showHighscore();
-
-  // Erste Frage
   showQuestion();
 }
 
@@ -153,3 +151,4 @@ function updateHomeHighscore() {
   const highscore = localStorage.getItem('fhHighscore') || 0;
   hsEl.innerHTML = `Bester Score bisher: <strong>${highscore}</strong> von ${questions.length}`;
 }
+
