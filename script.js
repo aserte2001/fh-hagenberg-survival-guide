@@ -46,6 +46,10 @@ function startQuiz() {
   currentQuestion = 0;
   score = 0;
   scoreEl.textContent = score;
+
+  // ← HIER AUFRUFEN!
+  showHighscore();   // ← Zeigt Highscore an, bevor Quiz startet
+
   showQuestion();
 }
 
@@ -119,4 +123,5 @@ setTimeout(() => {
     }
   }, 500);
 }, 1000);
+
 
