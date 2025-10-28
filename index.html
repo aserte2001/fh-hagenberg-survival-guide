@@ -1,98 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FH Survival Guide</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #f8f9fa; }
+    .navbar { background: #005fa8 !important; }
+    .display-5 { color: #005fa8; }
+  </style>
+</head>
+<body>
 
-// Quiz Daten – FH-spezifisch
-const questions = [
-  {
-    question: "Wann beginnt das Wintersemester an der FH Hagenberg?",
-    options: ["1. September", "1. Oktober", "15. September", "1. August"],
-    answer: 1  // 1. Oktober
-  },
-  {
-    question: "Welche Programmiersprache ist Pflicht im 1. Semester Software Engineering?",
-    options: ["Python", "Java", "C++", "JavaScript"],
-    answer: 1  // Java
-  },
-  {
-    question: "In welchem Gebäude ist die Mensa?",
-    options: ["Gebäude A", "Gebäude B", "Gebäude C", "Im Park"],
-    answer: 1  // Gebäude B
-  }
-];
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">FH Survival Guide</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-let currentQuestion = 0;
-let score = 0;
+  <main id="home" class="container my-5 text-center">
+    <h1 class="display-5">Willkommen!</h1>
+    <p class="lead">Dein Guide für Hagenberg – aus Neugier gebaut</p>
+  </main>
 
-const questionEl = document.getElementById('question');
-const optionsEl = document.getElementById('options');
-const nextBtn = document.getElementById('next-btn');
-const scoreEl = document.getElementById('score');
+  <section id="quiz" class="container my-5 d-none">
+    <h2 class="text-center mb-4" style="color: #005fa8;">Bist du bereit?</h2>
+    <div class="bg-white p-4 rounded shadow">
+      <h4 id="question">Lade...</h4>
+      <div id="options" class="mt-3"></div>
+      <p class="mt-3 text-center">Punkte: <strong id="score">0</strong></p>
+    </div>
+  </section>
 
-// Hilfsfunktion: Alle Sektionen verstecken
-function hideAllSections() {
-  document.querySelectorAll('section, main').forEach(s => s.classList.add('d-none'));
-}
-
-// Navigation: Quiz starten
-document.addEventListener('DOMContentLoaded', () => {
-  const quizLink = document.querySelector('a[href="#quiz"]');
-  if (quizLink) {
-    quizLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      hideAllSections();
-      document.getElementById('quiz').classList.remove('d-none');
-      setTimeout(startQuiz, 100);  // Kurze Pause für DOM
-    });
-  }
-});
-
-// Starte Quiz
-function startQuiz() {
-  currentQuestion = 0;
-  score = 0;
-  scoreEl.textContent = score;
-  showQuestion();
-}
-
-function showQuestion() {
-  const q = questions[currentQuestion];
-  questionEl.textContent = q.question;
-  optionsEl.innerHTML = '';
-
-  q.options.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-outline-primary w-100 mb-2';
-    btn.textContent = opt;
-    btn.onclick = () => selectAnswer(i);
-    optionsEl.appendChild(btn);
-  });
-
-  nextBtn.style.display = 'none';  // Versteckt bis Ende
-}
-
-function selectAnswer(selected) {
-  const correct = questions[currentQuestion].answer;
-  const buttons = optionsEl.querySelectorAll('button');
-  buttons.forEach((btn, i) => {
-    btn.disabled = true;
-    if (i === correct) btn.classList.add('btn-success');
-    if (i === selected && i !== correct) btn.classList.add('btn-danger');
-  });
-
-  if (selected === correct) {
-    score++;
-    scoreEl.textContent = score;
-    alert("Richtig! 🚀 Gut gemacht!");
-  } else {
-    alert(`Falsch 😅 Richtig wäre: ${questions[currentQuestion].options[correct]}`);
-  }
-
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
-    setTimeout(showQuestion, 1500);  // Pause für Feedback
-  } else {
-    setTimeout(() => {
-      alert(`Quiz beendet! 🎉 Dein Score: ${score}/${questions.length} – Super Start für Hagenberg!`);
-      hideAllSections();
-      document.getElementById('home').classList.remove('d-none');
-    }, 1500);
-  }
-}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
