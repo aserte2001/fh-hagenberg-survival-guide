@@ -152,3 +152,34 @@ function updateHomeHighscore() {
   hsEl.innerHTML = `Bester Score bisher: <strong>${highscore}</strong> von ${questions.length}`;
 }
 
+// Highscore laden und anzeigen
+function showHighscoreList() {
+  const highscoreList = JSON.parse(localStorage.getItem('highscores')) || [];
+  const ul = document.getElementById('highscore-list');
+  ul.innerHTML = '';
+  highscoreList
+    .sort((a, b) => b.score - a.score) // höchster Score zuerst
+    .forEach(entry => {
+      const li = document.createElement('li');
+      li.textContent = `${entry.name}: ${entry.score} Punkte`;
+      ul.appendChild(li);
+    });
+}
+showHighscoreList(); // beim Seitenstart anzeigen
+
+// Füge diese Funktion ein, wenn User am Ende des Quiz einen Score hat!
+function addHighscore(name, score) {
+  const highscoreList = JSON.parse(localStorage.getItem('highscores')) || [];
+  highscoreList.push({ name, score });
+  localStorage.setItem('highscores', JSON.stringify(highscoreList));
+  showHighscoreList();
+}
+
+const score = /* dein Quiz-Score */;
+const name = prompt("Trag deinen Nicknamen für die Highscore-Liste ein:");
+if (name) {
+  addHighscore(name, score);
+}
+
+
+
